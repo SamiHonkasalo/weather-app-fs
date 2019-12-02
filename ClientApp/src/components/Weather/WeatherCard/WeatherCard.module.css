@@ -1,0 +1,120 @@
+.WeatherCard {
+  margin: auto;
+  width: 80%;
+  max-width: 600px;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 5px 0px 5px;
+}
+
+.Title {
+  width: 30%;
+  height: auto;
+  font-size: 1em;
+  font-weight: bold;
+  color: #b31483;
+  padding-top: 20px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  padding: 0 0 10px 10px;
+  box-sizing: border-box;
+}
+
+.Title h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.Station {
+  font-size: 1em;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.Time {
+  font-size: 0.7em;
+  word-wrap: break-word;
+  color: #000;
+}
+
+.Temperature {
+  width: 70%;
+  font-size: 2.2em;
+  color: #b31483;
+  padding-left: 0px;
+  padding-top: 20px;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+  text-align: right;
+  padding: 10px;
+}
+.Temperature h1 {
+  margin-top: 0;
+  flex-shrink: 2;
+  display: inline-block;
+}
+
+.Icon {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.Icon img {
+  height: 100px;
+  width: 100px;
+  background-color: #226280;
+  border-radius: 50%;
+}
+
+.Description {
+  height: auto;
+  margin-left: 30px;
+  text-transform: capitalize;
+}
+
+.SmallContainer {
+  width: 50%;
+  display: flex;
+  border-bottom: 1px solid #eee;
+  justify-content: left;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.SmallContainer img {
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+}
+
+@media (max-width: 800px) {
+  .WeatherCard {
+    flex-direction: column;
+    text-align: center;
+  }
+  .SmallContainer,
+  .Icon,
+  .Title {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .Temperature {
+    font-size: 1.5em;
+    width: 100%;
+    text-align: center;
+  }
+}

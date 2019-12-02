@@ -1,0 +1,20 @@
+.WeatherLine {
+  display: block;
+  margin: auto;
+}
+
+.Label {
+  color: #fff;
+  display: inline-block;
+  text-transform: capitalize;
+  margin: 5px auto;
+  font-size: 1em;
+}
+
+.Text {
+  color: #fff;
+  display: inline-block;
+  text-transform: capitalize;
+  margin: 5px auto;
+  font-size: 1em;
+}

@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+.Tabs {
+  margin-top: 0px;
+  font-size: 15px;
+  padding: 0px;
+  list-style: none;
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.Tabs a {
+  text-decoration: none;
+  color: #b31483;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  position: relative;
+  z-index: 1;
+  transition-duration: 0.6s;
+  float: right;
+}
+
+.Active {
+  color: #fff !important;
+}
+
+.Tabs .Selector {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: #064461;
+}
+
+/* Selector does not work well on smaller screens, so it is hidden */
+@media (max-width: 1350px) {
+  .Tabs .Selector {
+    display: none;
+  }
+  .Active {
+    background-color: #064461;
+  }
+  .Tabs a {
+    transition-duration: 0.2s;
+  }
+}

@@ -1,0 +1,41 @@
+.Button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 7px 10px;
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  border: 1px solid #eee;
+  max-width: 100px;
+  width: 40%;
+  white-space: pre-line;
+  background-color: transparent;
+  transition: color 0.3s ease-in;
+  box-shadow: 0 1em 2em rgba(0, 0, 0, 0.2);
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  display: none;
+}
+
+.Success {
+  color: #fff;
+  background: linear-gradient(to right, #b31483 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+}
+
+.Success:hover {
+  background-position: left bottom;
+}
+
+.Danger {
+  color: #ac1414;
+}

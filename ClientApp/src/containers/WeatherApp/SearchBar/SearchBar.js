@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import rateLimit from "axios-rate-limit";
 
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
@@ -30,46 +31,51 @@ class SearchBar extends Component {
       searchEnabled: false
     });
 
-    // Use ajax to get a list of cities that can be found with the selected query
-    // Only search if more than X characters have been inserted
-    if (field.value.length >= 4) {
+    // Use axios to get a list of cities that can be found with the selected query
+    // Only search if more than 2 characters have been inserted
+    // Create a new axios instance for the request limiter
+    const axiosLimit = rateLimit(axios.create(), {
+      maxRequests: 1,
+      perMilliseconds: 1000,
+      maxRPS: 1
+    });
+    if (field.value.length >= 2) {
       // Replace Ä with A, Ö with O after converting to lowercase
       let srchStr = field.value.toLowerCase(field.value);
       srchStr = srchStr.replace("ä", "a");
       srchStr = srchStr.replace("ö", "o");
       this.setState({ loading: true });
-      axios({
+      axiosLimit({
         method: "GET",
-        url:
-          "https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php",
+        url: "https://wft-geo-db.p.rapidapi.com/v1/geo/cities",
         headers: {
           "content-type": "application/octet-stream",
-          "x-rapidapi-host": "devru-latitude-longitude-find-v1.p.rapidapi.com",
-          "x-rapidapi-key": "a9103aeb44mshf6d272c98b4b8bbp18f0c8jsn898845d5ecca"
+          "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+          "x-rapidapi-key": "fac7db2093msh18389e4f9e58c3bp16ed25jsnff0fc0795d13"
         },
         params: {
-          location: srchStr
+          namePrefix: srchStr,
+          limit: "10",
+          sort: "-population"
         }
       })
         .then(response => {
           // Initialize the result array
           let results = [];
           // Create a copy of the results for later usage
-          let arr = { ...response.data.Results };
-          // Map the results to an array of result-objects IF the result type is city
-          for (const key in arr) {
-            if (arr.hasOwnProperty(key)) {
-              const element = arr[key];
-              // Only add the result if it's a city
-              if (element.type === "city") {
-                results.push({
-                  name: element.name,
-                  country: element.c,
-                  lat: element.lat,
-                  lon: element.lon,
-                  sel: false
-                });
-              }
+          let arr = { ...response.data.data };
+          // Map the results to an array of result-objects
+          for (const id in arr) {
+            if (arr.hasOwnProperty(id)) {
+              const element = arr[id];
+              results.push({
+                name: element.city + ", " + element.country,
+                country: element.country,
+                lat: element.latitude,
+                lon: element.longitude,
+                id: element.id,
+                sel: false
+              });
             }
           }
           this.setState({
@@ -302,7 +308,7 @@ class SearchBar extends Component {
         }
         return (
           <li
-            key={d.name}
+            key={d.id}
             className={resultClasses}
             onMouseDown={e => this.onClickHandler(d, e)}
           >
@@ -311,7 +317,7 @@ class SearchBar extends Component {
         );
       });
     } else if (this.state.touched && !this.state.loading) {
-      listItems = <p>Please enter more than four letters</p>;
+      listItems = <p>Please enter atleast two letters</p>;
     }
     // if loading, show spinner
     if (this.state.loading) {
